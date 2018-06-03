@@ -33,9 +33,11 @@ My project includes the following files:
 * drive.py for driving the car in autonomous mode
 * model.h5 containing a trained convolution neural network 
 * writeup_report.md
+* run1.mp4 showing the car completing Track 1
+* run2.mp4 showing the car completing Track 2
 
 #### 2. Submission includes functional code
-Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
+Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around both tracks by executing 
 ```sh
 python drive.py model.h5
 ```
@@ -48,13 +50,13 @@ The model.py file contains the code for training and saving the convolution neur
 
 #### 1. An appropriate model architecture has been employed
 
-The NVIDIA [The NVIDIA model](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/) Network Architecture was used to solve this problem. 
+The [The NVIDIA](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/) Network Architecture was used to solve this problem. 
 
 #### 2. Attempts to reduce overfitting in the model
 
-The model contains dropout layers in order to reduce overfitting (model.py lines 41). 
+The model contains a dropout layer in order to reduce overfitting (model.py lines 41). 
 
-The model was trained and validated on different data sets to ensure that the model was not overfitting (model.py code line 17-25, and 52-71). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
+The model was trained and validated on different data sets to ensure that the model was not overfitting (model.py code lines 17-25, and 52-71). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
 #### 3. Model parameter tuning
 
@@ -62,25 +64,25 @@ The model used an adam optimizer, so the learning rate was not tuned manually (m
 
 #### 4. Appropriate training data
 
-Training data was chosen to keep the vehicle driving on the road. I used a combination circuits around both tracks in clock-, and anti-clockwise directions, and kept to the centre of the road as much as possible.
+Training data was chosen to keep the vehicle driving on the road. I used a combination of circuits around both tracks in clockwise, and anti-clockwise directions, and kept to the centre of the road as much as possible.
 
 ### Model Architecture and Training Strategy
 
 #### 1. Solution Design Approach
 
-I followed David's lectures to build a network based on NVIDIA's architecture, as stated above. 
+Initially, I followed David's lectures to build a network based on NVIDIA's architecture, as stated above, until the data and processing demand became too much for my MacBook Air, and I switched over to the pure NVIDIA model. Several thousand Epochs were run, with different parameters fed into the network, like using Recitfied Linear Unit (RELU), instead of Exponential Linear Unit (ELU), using model.add(Lambda(lambda x: x/255-0.5, input_shape=INPUT_SHAPE)), instead of model.add(Lambda(lambda x: x/127.5-1.0, input_shape=INPUT_SHAPE)) for normaliztion, inserting dropouts between each each layer - but in the end the NVIDIA model worked perfectly, with good data.
 
 #### 2. Final Model Architecture
 
-The design of the network is based on [the NVIDIA model](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/), which has been used by NVIDIA.  
+The design of the network is based on [the NVIDIA model](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/), which has been used by NVIDIA to succesfully train an autonomous car to drive in all conditions, and on roads with and without lane markings.  
 
-The NVIDIA Model is a deep convolution network which is well suited for for the problem presented by the project.  The NVIDIA model is well documented, which enabled me to concentrate on trying to fine tune the network and obtaining good data.
+The NVIDIA Model is a deep convolutional network, which is well suited for for the problem presented by the project.  The NVIDIA model is also well documented, which enabled me to concentrate on trying to fine tune the network and obtaining good data.
 
 The following adjustments were added to the model:
 
-- Lambda layer to normalize input images to avoid saturation and improving gradients work.
+- Lambda layer to normalize input images to avoid saturation, and improving gradients work.
 - A dropout layer to avoid overfitting.
-- ELU as the activation function for every layer, except for the output layer to introduce non-linearity.
+- Exponential Linear Unit (ELU) was used as the activation function for every layer, except for the output layer to introduce non-linearity.
 
 In the end, the model looks like as follows:
 
@@ -115,12 +117,9 @@ The below is an model structure output from the Keras which gives more details o
 |                                |**Total params**  |252219  |                 |
 
 
-
-![alt text][image1]
-
 #### 3. Creation of the Training Set & Training Process
 
-To capture good driving behavior, I used a combination circuits around both tracks in clockwise (once for each track), and anti-clockwise(once for each track) directions, and kept to the centre of the road as much as possible. I found it not neccessary to record recovery scenarios.
+To capture good driving behavior, I used a combination of circuits around both tracks in clockwise (twice for each track), and anti-clockwise(also twice for each track) directions, and kept to the centre of the road as much as possible. I found it not neccessary to record recovery scenarios, as the model trained perfectly without it. Several hundred Epochs were run with the Udacity provided data (which included recovery to the centre line scenarios) added to my own data obtained with the keyboard controls. This trained well for Track 1, but could never train to successfully complete Track 2.  I suspect the reason is that the data obtained by using keyboard controls was bad and not granular enough to train the model successfully for Track 2. I eventually bought a Thrustmaster Dual Analog 4 and obtained excellent data with it, and did not have to obtain recovery data at all.
 
 After the collection process, I had 72 165 data points. I then preprocessed this data by cropping, resizing and converting the frames from RGB to YUV. (Lines 38 - 45 of utils.py)
 
