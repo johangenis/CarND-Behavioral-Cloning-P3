@@ -4,7 +4,7 @@
 
 |Track 1|Track 2|
 |:--------:|:------------:|
-|[![Track 1](https://youtu.be/p5N7pgnenVI)
+|[![Track 1](https://www.youtube.com/watch?v=p5N7pgnenVI&feature=youtu.be)
 
 The goals / steps of this project are the following:
 * Use the simulator to collect data of good driving behavior
