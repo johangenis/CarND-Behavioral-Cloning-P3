@@ -4,7 +4,7 @@
 
 |Track 1|Track 2|
 |:--------:|:------------:|
-|[![Lake Track](images/lake_track.png)](https://www.youtube.com/watch?v=p5N7pgnenVI)[![Jungle Track](images/jungle_track.png)](https://www.youtube.com/watch?v=D9KVDbz0lgE)|
+|[![Lake Track](images/lake_track.png)](https://www.youtube.com/watch?v=p5N7pgnenVI)|[![Jungle Track](images/jungle_track.png)](https://www.youtube.com/watch?v=D9KVDbz0lgE)|
 |[YouTube Link](https://www.youtube.com/watch?v=p5N7pgnenVI)|[YouTube Link](https://www.youtube.com/watch?v=D9KVDbz0lgE)|
 
 The goals / steps of this project are the following:
